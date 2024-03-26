@@ -1,24 +1,28 @@
-{/* <div id="parent">
-    <div id="child">
-        <h1> I'm a h1 tag!</h1>
-        <h2>I'm a h2 tag!</h2>
-    </div>
-</div>
+import React from "react";
+import ReactDOM from "react-dom/client";
 
 
-ReactElement(Object) => HTML(Browser Understands) */}
+// {/* <div id="parent">
+//     <div id="child">
+//         <h1> I'm a h1 tag!</h1>
+//         <h2>I'm a h2 tag!</h2>
+//     </div>
+// </div>
 
-const parent = react.createElement(
-    "div",
-    {id:"parent"},
-    react.createElement(
-        "div",
-        {id:"child"},[
-        react.createElement("h1",{},"I'm a h1 tag!"),
-        react.createElement("h2",{},"I'm a h2 tag!"),
-    ]
-    )
-);
+
+// ReactElement(Object) => HTML(Browser Understands) */}
+
+// const parent = react.createElement(
+//     "div",
+//     {id:"parent"},
+//     react.createElement(
+//         "div",
+//         {id:"child"},[
+//         react.createElement("h1",{},"I'm a h1 tag!"),
+//         react.createElement("h2",{},"I'm a h2 tag!"),
+//     ]
+//     )
+// );
 
 
 console.log(parent);
