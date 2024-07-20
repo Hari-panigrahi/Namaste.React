@@ -1,16 +1,38 @@
 import RestaurantCard from "./RestaurantCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import resList from "../utils/mockData";
+import Shimmer from "./Shimmer";
 
 
 const Body = () => {
 
   // Local State Variable - super powerful variable
-  const [listOfRestaurants, setListOfRestaurant] = useState(resList);
+  const [listOfRestaurants, setListOfRestaurant] = useState([]); 
+  useEffect(() => {
+    // console.log("body rendered")
+    fetchData();
+  }, []);
 
+  const fetchData = async () => {
+    const data = await fetch(
+     "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+    );
 
-  //Normal JS variable 
+    const json = await data.json();
+
+    console.log(json);
+
+    setListOfRestaurant(json?.data?.cards[5].card?.card?.gridElements?.infoWithStyle?.restaurants);
+  };
+
+  if(listOfRestaurants.length == 0){
+  return<Shimmer/>;
+  }
+
+  // Normal JS variable 
   // let listOfRestaurants =[
+
+
   // {
   //   data: {
   //     id: "439223",
@@ -30,7 +52,6 @@ const Body = () => {
   //     costForTwoString: "₹800 FOR TWO",
   //     deliveryTime: 40,
   //     avgRating: "4.1",
-
   //   }
   // },
   // {
@@ -43,8 +64,7 @@ const Body = () => {
   //     costForTwoString: "₹200 FOR TWO",
   //     deliveryTime: 37,
   //     avgRating: "3.6",
-    
-  //   }
+  //  }
   // },
   // {
   //   data: {
@@ -59,11 +79,15 @@ const Body = () => {
     
   //   }
   // }
+
+
   // ];
   
-  return (
+  return listOfRestaurants.length == 0 ? (
+   <Shimmer/> 
+  ) : (
     <div className="body">
-      <div className="filter">
+      <div className="filter" >  
         <button
           className="filter-btn"
           onClick={() => {     
@@ -80,31 +104,6 @@ const Body = () => {
         {listOfRestaurants.map((restaurant) => (
           <RestaurantCard key={restaurant.data.id} resData={restaurant} />
         ))}
-
-        {/* <RestaurantCard 
-           resData = {resList[0]}
-          />
-          <RestaurantCard 
-           resData = {resList[1]}
-          />
-          <RestaurantCard 
-           resData = {resList[2]}
-          />
-          <RestaurantCard 
-
-           resData = {resList[3]}
-          />
-          <RestaurantCard 
-           resData = {resList[4]}
-          /> */}
-
-        {/* <RestaurantCard
-            resName="Hangout Cakes & More"
-            cuisines="Bakery,Desserts,Snacks"
-            starRating="4.5 stars"
-            address="Dadar"
-          />
-         */}
       </div>
     </div>
   );
